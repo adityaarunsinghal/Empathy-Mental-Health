@@ -34,7 +34,8 @@ class EmpathyClassifier():
 			EX_model_path = 'output/sample.pth',
 			batch_size=1):
 		
-		self.tokenizer = RobertaTokenizer.from_pretrained('roberta-base', do_lower_case=True)
+		self.tokenizer = RobertaTokenizer.from_pretrained('roberta-base', do_lower_case=True, truncation=True, padding='max_length')
+
 		self.batch_size = batch_size
 		self.device = device
 
@@ -54,6 +55,8 @@ class EmpathyClassifier():
 		self.model_ER.to(self.device)
 		self.model_IP.to(self.device)
 		self.model_EX.to(self.device)
+
+		print(">>>> Loaded weights")
 
 
 	def predict_empathy(self, seeker_posts, response_posts):
